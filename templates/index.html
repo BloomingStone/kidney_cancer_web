@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+    <form action="/index/" method = "POST">
+        {% csrf_token %}
+        <div>
+            <label>patient_id</label>
+            <input type="text" name = "patient_id">
+        </div>
+        <div>
+            <input type="submit" value = "确认">
+        </div>
+    </form>
+
+    <p> {{ path }} </p>
+</body>
+</html>
