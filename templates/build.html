@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>智慧肾癌诊断系统</title>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/build/TemplateData/style.css">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.1.3/toastr.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+</head>
+
+<body onload="noright(document.body);">
+    <!--侧边栏-->
+    <!--  延时显示侧边栏按钮  -->
+    <div id="show-delay"></div>
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="false" id="offcanvasExample">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">CT报告</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                <table class="table table-striped" id="info-table">
+                    <tbody>
+                        <tr>
+                            <td>患者姓名</td>
+                            <td>{{patient.name}} </td>
+                        </tr>
+                        <tr>
+                            <td>性别</td>
+                            <td>{{gender}}</td>
+                        </tr>
+                        <tr>
+                            <td>年龄</td>
+                            <td>{{patient.age}}</td>
+                        </tr>
+                        <tr>
+                            <td>检查时间</td>
+                            <td>{{image_time}}</td>
+                        </tr>
+                        <tr>
+                            <td>科室</td>
+                            <td>{{patient.department}}</td>
+                        </tr>
+                        <tr>
+                            <td>报告医生</td>
+                            <td>{{image_report.doctor}}</td>
+                        </tr>
+                        <tr>
+                            <td>报告时间</td>
+                            <td>{{image_report.time}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="#" method="post" class="form-horizontal" role="form">
+                    {% csrf_token %}
+                    <div class="form-group"> <label for="observation">图像所见:</label>
+                        <textarea name="observation" cols="20" rows="10" class="form-control" id="observation">{{image_report.observation}}</textarea>
+                    </div>
+                    <div class="form-group"> <label for="impression">印象:</label>
+                        <textarea name="impression" cols="20" rows="10" class="form-control" id="impression">{{image_report.impression}}</textarea>
+                    </div>
+                    <input type="button" onclick="submit_report()" class="btn btn-secondary"value="提交">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" style="width: 1170px; height: 776px"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      </div>
+
+
+</body>
+<script src="/static/build/Build/basic_set.js"></script>
+    <!--以下为 Ajax脚本 -->
+</html>

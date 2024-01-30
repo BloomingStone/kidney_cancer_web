@@ -1,21 +1,131 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-</head>
-<body>
-    <form action="/index/" method = "POST">
-        {% csrf_token %}
-        <div>
-            <label>patient_id</label>
-            <input type="text" name = "patient_id">
-        </div>
-        <div>
-            <input type="submit" value = "确认">
-        </div>
-    </form>
+{% extends 'base.html' %}
 
-    <p> {{ path }} </p>
-</body>
-</html>
+{% block content %}
+<div class="py-1" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 d-flex flex-row justify-content-start mt-0">
+                <!--       patient information-->
+                <form class="form-inline" action="/index/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control mx-2" id="" placeholder="病人ID" name="patient_id"></div>
+                        <button type="submit" class="btn btn-primary mx-4">确定</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--nava-tab-->
+<div class="py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <ul class="nav nav-tabs" role="tablist">
+
+                    <li class="nav-item">
+                        <a href="" class="active nav-link" data-toggle="tab" data-target="#image-panel"
+                           role="tab">图像</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="" class="nav-link" data-toggle="tab" data-target="#report-panel" role="tab">报告</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--tap panel-->
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="image-panel" role="tabpanel">
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>图像名</th>
+                                    <th>时间</th>
+                                    <th>CT报告</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for image in image_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{% url 'build' image.id %}"> {{image.name}} </a></td>
+                                    <td>{{ image.time }}</td>
+                                    {% if image.imagereport %}
+                                    <td>有</td>
+                                    {% else %}
+                                    <td>无</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="report-panel" role="tabpanel">
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>报告名</th>
+                                    <th>最后修改时间</th>
+                                    <th>医生</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for report in report_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{% url 'report_alter' report.id %}">{{ report.name }}</a></td>
+                                    <td>{{ report.time }}</td>
+                                    <td>{{ report.doctor.name }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if not error_message%}
+        <div class="py-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="btn btn-primary" href="/report/new/">新增</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% if error_message %}
+<script>
+    alert('{{error_message}}')
+</script>
+{% endif %}
+{% endblock content %}

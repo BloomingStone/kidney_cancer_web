@@ -1,27 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>智慧肾癌诊断系统</title>
+  <link rel="stylesheet" href="/static/aquamarine.css" type="text/css">
 </head>
+
 <body>
-    <!--  注册界面  -->
-    <form action="/login/" method = "POST">
-        {% csrf_token %}
-        <div>
-            <label>user name</label>
-            <input type="text" name = "username">
+  <div class="align-items-center d-flex cover section-aquamarine py-5" style="	background-image: url(/static/assets/img/cover.jpg);	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 align-self-center text-lg-left text-center">
+          <h1 class="mt-5 mb-5 display-4">智慧肾癌诊断系统</h1>
         </div>
-        <div>
-            <label>password</label>
-            <input type="text" name = "password">
+        <div class="col-lg-5 p-3">
+          <form class="p-4 bg-light" method="POST" action="/login/"> {% csrf_token %} <h1 class="text-center">欢迎</h1>
+            <div class="form-group">
+              <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+              <label>Username</label>
+              <input class="form-control" required="required" name="username"> </div>
+            <div class="form-group">
+              <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+              <label>Password</label>
+              <input type="password" class="form-control" required="required" name="password"> </div>
+
+            <button type="submit" class="btn mt-4 btn-block p-2 btn-primary"><b>登录</b></button>
+          </form>
         </div>
-        <div>
-            <input type="submit" value = "登录">
-        </div>
-    </form>
-</body>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+
 </html>

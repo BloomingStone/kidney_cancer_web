@@ -70,8 +70,8 @@ if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
     config.devicePixelRatio = 1;
     unityShowBanner('WebGL builds are not supported on mobile devices.');
 } else {
-    canvas.style.width = "1200px";
-    canvas.style.height = "100%";
+    canvas.style.width = "960px";
+    canvas.style.height = "600px";
 }
 loadingBar.style.display = "block";
 
@@ -87,3 +87,80 @@ script.onload = () => {
     });
 };
 document.body.appendChild(script);
+
+
+var html="<a class='btn btn-secondary' id='report-btn' data-bs-toggle='offcanvas' href='#offcanvasExample' role='button' aria-controls='offcanvasExample' >CT report</a>";
+
+setTimeout("document.getElementById('show-delay').innerHTML=html",5000);//延时10秒
+
+
+    toastr.options = {
+        closeButton: true,
+        debug: true,
+        progressBar: true,
+        positionClass: "toast-top-center",
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "2000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+
+
+function submit_report() {
+    $.ajax({
+        cache: false,
+        url: "/image-report/",
+        type: "POST",
+        dataType: "json",
+        data: {
+            "observation": $("#observation").val(),
+            "impression": $("#impression").val(),
+        },
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if (data.status == "200") {
+                toastr.success('提交成功');
+
+            }
+        },
+    });
+};
+
+
+function noright(obj) {
+    if (obj) {
+        obj.oncontextmenu  =  function() {
+            return false;
+        }
+        obj.ondragstart  =  function() {
+            return false;
+        }
+        obj.onselectstart  =  function() {
+            return false;
+        }
+        obj.onselect  =  function() {
+            obj.selection.empty();
+        }
+        obj.oncopy  =  function() {
+            obj.selection.empty();
+        }
+        obj.onbeforecopy  =  function() {
+            return false;
+        }
+    }
+}
+
+setInterval(function () { //每5秒刷新一次图表
+document.oncontextmenu = function(){
+
+    return false;
+
+}
+
+    }, 3000);
